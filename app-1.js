@@ -8,34 +8,34 @@ angular.module('NameCalculator', [])
   $scope.totalValue = '';
   $scope.dis=function(){
   $scope.state="pass";
-    var total= $scope.name.split(",");
-    var len=total.length;
-
-    // if( total.length>1)
-    // {
-    //   for(var i = 0; i < total.length; i++)
-    //   {
-    //     if(total[i]=='')
-    //       {
-    //
-    //        $scope.totalValue = "please enter item at location:" + i;
-    //        temp=i;
-    //
-    //      }
-    //     console.log(total[i]);
-    //   }
-    //   //$scope.totalValue = "please enter item at location:" + temp
-    // }
-    if(total==""){
+  var words= $scope.name.split(",");
+  var len=words.length;
+  var flag=true;
+      /**
+      ** Logic for handling an empty item, i.e., , ,"
+      **/
+      for(var i = 0; i < words.length; i++){
+         if(words[i]=='' && words.length !=1)
+           {
+    
+            $scope.totalValue = "please enter item at location:" + i;
+            flag=false;
+            return;
+    
+          }
+         console.log(words[i]);
+       }
+  
+    if(words=="" && flag){
     $scope.totalValue="Please enter data!";
     $scope.state="error";
     }
 
-    else if (len <=3) {
+    else if (len <=3 && flag) {
       $scope.totalValue="Enjoy!";
       $scope.state="pass";
     }
-    else {
+    else if (flag) {
         $scope.totalValue="Too Much!";
         $scope.state="pass";
     }
